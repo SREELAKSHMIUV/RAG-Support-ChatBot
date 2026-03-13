@@ -1,0 +1,81 @@
+SUPPORT KNOWLEDGE BASE
+
+1. Account Login Issues
+Problem: User cannot log in to the application.
+
+Solutions:
+- Ensure the username and password are correct.
+- Check if Caps Lock is enabled.
+- Try resetting the password using the "Forgot Password" option.
+- Clear browser cache and cookies.
+- Try logging in from another browser.
+
+-----------------------------------------------------
+
+2. Password Reset Problem
+
+Problem: User is not receiving password reset email.
+
+Solutions:
+- Ask the user to check the spam or junk folder.
+- Confirm the registered email address is correct.
+- Wait for 2–3 minutes and try again.
+- Ensure the email inbox is not full.
+
+-----------------------------------------------------
+
+3. OTP Not Received
+
+Problem: User does not receive OTP during login or verification.
+
+Solutions:
+- Check mobile network connectivity.
+- Ensure the registered phone number is correct.
+- Wait for 1–2 minutes before requesting a new OTP.
+- Restart the phone and try again.
+
+-----------------------------------------------------
+
+4. App Running Slowly
+
+Problem: The application is very slow.
+
+Solutions:
+- Ask the user to clear the application cache.
+- Close background applications.
+- Check internet connection speed.
+- Restart the application.
+
+-----------------------------------------------------
+
+5. Payment Failure
+
+Problem: Payment was unsuccessful.
+
+Solutions:
+- Check if sufficient balance is available.
+- Ensure the card details are correct.
+- Try another payment method.
+- Contact the bank if the issue persists.
+
+-----------------------------------------------------
+
+6. Order Not Delivered
+
+Problem: User has not received their order.
+
+Solutions:
+- Check order status in the "My Orders" section.
+- Verify the delivery address.
+- Wait for the estimated delivery time.
+- Contact delivery support if delayed.
+
+-----------------------------------------------------
+
+7. Contact Support
+
+If the issue cannot be resolved:
+
+Email: support@company.com  
+Phone: +91-9876543210  
+Support Hours: 9 AM – 6 PM (Monday to Saturday)

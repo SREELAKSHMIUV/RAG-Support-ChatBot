@@ -3,15 +3,23 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from groq import Groq
 from dotenv import load_dotenv
+from llm.llm_factory import get_llm
+
 import os
 
+
+# Load environment variables
 load_dotenv()
+
+# Initialize LLM from factory
+llm = get_llm()
+
 
 app = FastAPI()
 
-# Enable CORS for React
+
+# Enable CORS for React frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -20,17 +28,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# Request model
 class Query(BaseModel):
     question: str
 
-
-# Initialize Groq client
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # Load embedding model
 embedding_model = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
+
 
 # Load FAISS vector database
 vectorstore = FAISS.load_local(
@@ -66,24 +74,23 @@ def chat(query: Query):
     if "what do you do" in question:
         return {"answer": "I help users by answering support-related questions using the available knowledge base."}
 
-
-    # ---------- Search in FAISS ----------
+    # ---------- Retrieve Relevant Documents ----------
     docs_with_scores = vectorstore.similarity_search_with_score(query.question, k=3)
 
     relevant_docs = []
 
     for doc, score in docs_with_scores:
-        if score < 0.5:   # similarity threshold
+        if score < 0.5:
             relevant_docs.append(doc)
 
-    # If no relevant documents found
+    # If no relevant context found
     if len(relevant_docs) == 0:
         return {"answer": "Sorry, I don't have information about that."}
-
 
     # Combine context
     context = "\n".join([doc.page_content for doc in relevant_docs])
 
+    # Create prompt for LLM
     user_prompt = f"""
 Context:
 {context}
@@ -94,16 +101,7 @@ User Question:
 Provide a short helpful answer.
 """
 
-    response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
-        temperature=0.6,
-        max_tokens=150,
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ]
-    )
-
-    answer = response.choices[0].message.content
+    # Generate answer using LLM abstraction
+    answer = llm.generate(system_prompt, user_prompt)
 
     return {"answer": answer}
